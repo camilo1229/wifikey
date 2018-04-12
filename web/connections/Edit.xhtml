@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConnectionsEditDlg" widgetVar="ConnectionsEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditConnectionsTitle}">
+            <h:form id="ConnectionsEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{connectionsController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditConnectionsLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{connectionsController.selected.id}" title="#{bundle.EditConnectionsTitle_id}" required="true" requiredMessage="#{bundle.EditConnectionsRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditConnectionsLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{connectionsController.selected.status}" title="#{bundle.EditConnectionsTitle_status}" required="true" requiredMessage="#{bundle.EditConnectionsRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.EditConnectionsLabel_connectionDate}" for="connectionDate" />
+                        <p:calendar id="connectionDate" pattern="MM/dd/yyyy" value="#{connectionsController.selected.connectionDate}" title="#{bundle.EditConnectionsTitle_connectionDate}" required="true" requiredMessage="#{bundle.EditConnectionsRequiredMessage_connectionDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditConnectionsLabel_connectionTime}" for="connectionTime" />
+                        <p:calendar id="connectionTime" pattern="HH:mm:ss" value="#{connectionsController.selected.connectionTime}" title="#{bundle.EditConnectionsTitle_connectionTime}" required="true" requiredMessage="#{bundle.EditConnectionsRequiredMessage_connectionTime}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditConnectionsLabel_deviceId}" for="deviceId" />
+                        <p:selectOneMenu id="deviceId" value="#{connectionsController.selected.deviceId}" required="true" requiredMessage="#{bundle.EditConnectionsRequiredMessage_deviceId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{devicesController.itemsAvailableSelectOne}"
+                                           var="deviceIdItem"
+                                           itemValue="#{deviceIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditConnectionsLabel_userId}" for="userId" />
+                        <p:selectOneMenu id="userId" value="#{connectionsController.selected.userId}" required="true" requiredMessage="#{bundle.EditConnectionsRequiredMessage_userId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="userIdItem"
+                                           itemValue="#{userIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{connectionsController.update}" value="#{bundle.Save}" update="display,:ConnectionsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConnectionsEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ConnectionsEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

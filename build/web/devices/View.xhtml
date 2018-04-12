@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DevicesViewDlg" widgetVar="DevicesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDevicesTitle}">
+            <h:form id="DevicesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{devicesController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDevicesLabel_id}"/>
+                        <h:outputText value="#{devicesController.selected.id}" title="#{bundle.ViewDevicesTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDevicesLabel_name}"/>
+                        <h:outputText value="#{devicesController.selected.name}" title="#{bundle.ViewDevicesTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewDevicesLabel_mac}"/>
+                        <h:outputText value="#{devicesController.selected.mac}" title="#{bundle.ViewDevicesTitle_mac}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DevicesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
